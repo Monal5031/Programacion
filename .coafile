@@ -1,0 +1,7 @@
+# For local fixing
+# coala --apply-patches -n
+
+[default]
+files = **/*.java
+bears = SpaceConsistencyBear
+use_spaces = False
