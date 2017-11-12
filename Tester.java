@@ -6,7 +6,7 @@ import java.nio.charset.StandardCharsets;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 
-class Tester {
+public class Tester {
 
 	public static void main(String[] args) throws IOException {
 		/* ---Reading from file and process creation--- */
@@ -30,7 +30,7 @@ class Tester {
 			String[] pD = line.split("\t");
 			process[len] = new Process(pD, relativeArrivalTime);
 			// saving relative arrival time for next process
-			relativeArrivalTime=process[len].arrivalTime;
+			relativeArrivalTime = process[len].arrivalTime;
 			len++;
 			line = br.readLine();
 		}

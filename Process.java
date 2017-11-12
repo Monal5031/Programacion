@@ -1,7 +1,7 @@
 class Process {
-	private String pid;   // Process ID
-	private int arrivalTime, burstTime, priority;  // arrival, burst, priority
-	private double ioInterrupt, ioProcessing; // I/O interrupt, I/O processing(waiting)
+	String pid;   // Process ID
+	int arrivalTime, burstTime, priority;  // arrival, burst, priority
+	double ioInterrupt, ioProcessing; // I/O interrupt, I/O processing(waiting)
 
 	public Process(String[] metaData, int relativeArrivalTime) {
 		this.pid = metaData[0];

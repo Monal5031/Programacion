@@ -2,22 +2,22 @@ public class PreSJF {
 
 	// Method to find the waiting time for all processes
 	void getWaitingTime(Process[] process, int n, double[] waitingTime) {
-		int[] remainingTIme = new int[n];
+		int[] remainingTime = new int[n];
 		int complete = 0, t = 0, min = Integer.MAX_VALUE;
 		int shortest = 0, finishTime;
 		boolean check = false;
 
 		// Copy the burst time into remainingTime array
 		for (int i = 0; i < n; i++) {
-			remainingTIme[i] = process[i].burstTime;
+			remainingTime[i] = process[i].burstTime;
 		}
 
 		// Process until all processes get completed
 		while (complete != n) {
 			// Finding process with min remaining time, among arrived processes till now
 			for (int j = 0; j < n; ++j) {
-				if ((process[j].arrivalTime <= t) && (remainingTIme[j] < min) && remainingTIme[j] > 0) {
-					min = remainingTIme[j];
+				if ((process[j].arrivalTime <= t) && (remainingTime[j] < min) && remainingTime[j] > 0) {
+					min = remainingTime[j];
 					shortest = j;
 					check = true;
 				}
@@ -29,13 +29,13 @@ public class PreSJF {
 			}
 
 			// Reducing remaining time by one and updating min
-			min = --remainingTIme[shortest];
+			min = --remainingTime[shortest];
 			if (min == 0) {
 				min = Integer.MAX_VALUE;
 			}
 
 			// If a process gets executed completely
-			if (remainingTIme[shortest] == 0) {
+			if (remainingTime[shortest] == 0) {
 				complete++;
 				// Find finish time of current process
 				finishTime = t+1;
