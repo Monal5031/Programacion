@@ -1,15 +1,15 @@
 class Process {
 	private String pid;   // Process ID
-	private int aT,bT,p;  // arrival, burst, priority
-	private double iI,iP; // I/O interrupt, I/O processing(waiting)
+	private int arrivalTime, burstTime, priority;  // arrival, burst, priority
+	private double ioInterrupt, ioProcessing; // I/O interrupt, I/O processing(waiting)
 
 	public Process(String[] metaData, int relativeArrivalTime) {
 		this.pid = metaData[0];
 			// Calculating actual arrival time from relative arrival time
-		this.aT = relativeArrivalTime + Integer.parseInt(metaData[1]);
-		this.bT = Integer.parseInt(metaData[2]);
-		this.iI = Double.parseDouble(metaData[3]);
-		this.iP = Double.parseDouble(metaData[4]);
-		this.p = Integer.parseInt(metaData[5]);
+		this.arrivalTime = relativeArrivalTime + Integer.parseInt(metaData[1]);
+		this.burstTime = Integer.parseInt(metaData[2]);
+		this.ioInterrupt = Double.parseDouble(metaData[3]);
+		this.ioProcessing = Double.parseDouble(metaData[4]);
+		this.priority = Integer.parseInt(metaData[5]);
 	}
 }
