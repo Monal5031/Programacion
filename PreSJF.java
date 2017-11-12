@@ -9,14 +9,14 @@ public class PreSJF {
 
 		// Copy the burst time into remainingTime array
 		for (int i = 0; i < n; i++) {
-			remainingTIme[i] = process[i].bT;
+			remainingTIme[i] = process[i].burstTime;
 		}
 
 		// Process until all processes get completed
 		while (complete != n) {
 			// Finding process with min remaining time, among arrived processes till now
 			for (int j = 0; j < n; ++j) {
-				if ((process[j].aT <= t) && (remainingTIme[j] < min) && remainingTIme[j] > 0) {
+				if ((process[j].arrivalTime <= t) && (remainingTIme[j] < min) && remainingTIme[j] > 0) {
 					min = remainingTIme[j];
 					shortest = j;
 					check = true;
@@ -41,10 +41,10 @@ public class PreSJF {
 				finishTime = t+1;
 				//Galvin Pg.107, 265
 				waitingTime[shortest] =  finishTime
-							-process[shortest].aT
-							-process[shortest].bT
-							+process[shortest].iI
-							+process[shortest].iP;
+							-process[shortest].arrivalTime
+							-process[shortest].burstTime
+							+process[shortest].ioInterrupt
+							+process[shortest].ioProcessing;
 				if (waitingTime[shortest] < 0) {
 					waitingTime[shortest] = 0;
 				}
@@ -57,7 +57,7 @@ public class PreSJF {
 	// Method to calculate turn around time
 	void getTurnAroundTime(Process process[], int n, double[] waitingTime, double[] turnAroundTime) {
 		for (int i = 0; i < n; i++) {
-			turnAroundTime[i] = process[i].bT + waitingTime[i];
+			turnAroundTime[i] = process[i].burstTime + waitingTime[i];
 		}
 	}
 
