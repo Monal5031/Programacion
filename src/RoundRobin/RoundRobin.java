@@ -15,7 +15,6 @@ import java.util.Queue;
 public class RoundRobin {
 
 	static Queue<Process> gc = new LinkedList<>();
-	static int n = 0;
 	static float idle=0;
 	static ArrayList<Process> final_list = new ArrayList<>();
 
@@ -106,8 +105,7 @@ public class RoundRobin {
 	}
 
 	// Method to calculate turn around time
-	static void findTurnAroundTime(Queue<Process> gc, int n)
-	{
+	static void findTurnAroundTime(Queue<Process> gc) {
 		// calculating turnaround time by adding burst time and waiting time
 		Process p=null;
 
@@ -120,8 +118,7 @@ public class RoundRobin {
 }
 
 	// Method to calculate average time
-	static void findavgTime(ArrayList<Process> lc,int quantum)
-	{
+	static void findavgTime(ArrayList<Process> lc,int quantum) {
 
 		float total_wt = 0;
 		float total_tat = 0;
@@ -130,7 +127,7 @@ public class RoundRobin {
 		findWaitingTime(lc, quantum);
 
 		// Function to find turn around time for all Processes
-		findTurnAroundTime(gc, n);
+		findTurnAroundTime(gc);
 
 		// Calculate total waiting time and total turn
 		// around time
