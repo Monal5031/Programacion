@@ -13,7 +13,7 @@ public class PreSJFTester {
 		Scanner sc = new Scanner(System.in);
 		int len = 0,relativeArrivalTime;
 		System.out.println("Enter a file name(.txt)");
-		String file = "/home/fsociety/Desktop/Programacion-local/src/data/" + "ProInfo";
+		String file = "/home/fsociety/Desktop/Programacion/src/data/" + "ProInfo.txt";
 
 		// creating an instance of BufferedReader
 		BufferedReader br = new BufferedReader(new FileReader(file));
@@ -33,23 +33,8 @@ public class PreSJFTester {
 			len++;
 			line = br.readLine();
 		}
-
-		/* ---Algorithm selection and execution--- */
-		System.out.println("Choose an algorithm:");
-		System.out.println("1. First-Come, First-Served Scheduling");
-		System.out.println("2. Shortest-Job-First(Preemptive) Scheduling");
-		System.out.println("3. Round-Robin Scheduling");
-		switch (sc.nextInt()) {
-			case 1:
-				break;
-			case 2:
-				PreSJF ob = new PreSJF();
-				ob.getAvgTime(process, len);
-				break;
-			case 3:
-				break;
-			default:
-				System.out.println("Invalid option.");
-		}
+                PreSJF ob = new PreSJF();
+		ob.getAvgTime(process, len);
+				
 	}
 }

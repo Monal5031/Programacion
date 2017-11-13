@@ -23,7 +23,7 @@ public class RRTester {
 	public static void main(String[] args) throws Exception {
 		ArrayList<Process> lc = new ArrayList<>();
 		float currentTime=0;
-		String path = "/home/fsociety/Desktop/Programacion-local/src/data/";
+		String path = "/home/fsociety/Desktop/Programacion/src/data/";
 		BufferedReader br = new BufferedReader( new FileReader (path+"pTest.txt"));
 		String input;
 
