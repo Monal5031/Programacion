@@ -3,9 +3,11 @@ import fcfs.FCFS;
 import roundrobin.RoundRobin;
 import java.io.BufferedReader;
 import java.io.FileReader;
+import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.Scanner;
 import presjf.PreSJF;
+import roundrobin.Process;
 
 /*
  * To change this license header, choose License Headers in Project Properties.
@@ -20,7 +22,7 @@ import presjf.PreSJF;
 public class Tester {
 
 
-		public static void callSJF()throws Exception {
+	public void callSJF()throws Exception {
 			presjf.Process[] process = new presjf.Process[10];
 		Scanner sc = new Scanner(System.in);
 		int len = 0,relativeArrivalTime;
@@ -51,41 +53,52 @@ public class Tester {
 		ob.getAvgTime(process, len);
 			   // System.out.print("yeye\n");
 		}
-
-	public static void callRR()throws Exception {
-		ArrayList<roundrobin.Process> lc = new ArrayList<>();
-		float currentTime=0;
-				Scanner sc = new Scanner(System.in);
-				System.out.println("Enter a file name(.txt)");
-		String path = "/home/fsociety/Desktop/Programacion/src/data/";
-				String inp = sc.next();
-		BufferedReader br = new BufferedReader( new FileReader (path+inp));
-		String input;
-
-		roundrobin.Process p;
-		while((input=br.readLine()) != null){
-			String in[]=input.split("\t");
-			int at=Integer.parseInt(in[1]);
-			float bt=Float.parseFloat(in[2]);
-			float wt=Float.parseFloat(in[4]);
-			int prio=Integer.parseInt(in[5]);
-			float rem_bt=Float.parseFloat(in[2]);
-			p = new roundrobin.Process(in[0],at,bt,wt,prio,rem_bt);
-			if(lc.isEmpty()){
-				currentTime=p.arrivalTime;
+		public ArrayList<roundrobin.Process> readData(String inp)throws Exception {
+			ArrayList<roundrobin.Process> lc = new ArrayList();
+			String path = "/home/fsociety/Desktop/Programacion/src/data/";
+			BufferedReader br = new BufferedReader( new FileReader (path+inp));
+			String input;
+			float currentTime=0;
+			roundrobin.Process p;
+			while((input=br.readLine()) != null){
+					String in[]=input.split("\t");
+					int at=Integer.parseInt(in[1]);
+					float bt=Float.parseFloat(in[2]);
+					float wt=Float.parseFloat(in[4]);
+					int prio=Integer.parseInt(in[5]);
+					float rem_bt=Float.parseFloat(in[2]);
+					p = new roundrobin.Process(in[0],at,bt,wt,prio,rem_bt);
+					if(lc.isEmpty()){
+							currentTime=p.arrivalTime;
+					}
+					p.relTime=currentTime + p.arrivalTime;
+					//System.out.println(p.relTime + "$");
+					currentTime+=p.arrivalTime;
+					lc.add(p);
 			}
-			p.relTime=currentTime + p.arrivalTime;
-			//System.out.println(p.relTime + "$");
-			currentTime+=p.arrivalTime;
-			lc.add(p);
+			br.close();
+			return lc;
 		}
-		int quantum = 1;
-				RoundRobin obj = new RoundRobin();
-		obj.findIdleTime(lc,quantum);
-		obj.findavgTime(lc, quantum);
+	public void callRR()throws Exception {
+
+		Scanner sc = new Scanner(System.in);
+		System.out.println("Enter a file name(.txt)");
+		String inp = sc.next();
+				PrintWriter writer = new PrintWriter("/home/fsociety/Desktop/Programacion/output.txt","UTF-8");
+				for (int i = 0; i < 10; ++i) {
+					System.out.println("Enter "+(i+1)+"th quantum");
+					int quantum = sc.nextInt();
+					RoundRobin obj = new RoundRobin();
+					ArrayList<roundrobin.Process> temp;
+					temp = readData(inp);
+					obj.findIdleTime(temp,quantum);
+					obj.findavgTime(temp, quantum);
+					writer.println(quantum+" "+obj.waitTime+" "+obj.turnAroundTime);
+				}
+				writer.close();
 	}
 
-	public static void callFCFS()throws Exception {
+	public void callFCFS()throws Exception {
 		fcfs.Process[] process = new fcfs.Process[10];
 		Scanner sc = new Scanner(System.in);
 		int len = 0,relativeArrivalTime;
@@ -126,20 +139,20 @@ public class Tester {
 			System.out.println("1. First-Come, First-Served Scheduling");
 			System.out.println("2. Shortest-Job-First(Preemptive) Scheduling");
 			System.out.println("3. Round-Robin Scheduling");
+			Tester test = new Tester();
 			switch (sc.nextInt()) {
-				case 1:
-					callFCFS();
-					break;
-		case 2:
-					// Run PreSJFTester
-					callSJF();
-					break;
-		case 3:
-					callRR();
-					break;
-		default:
-					System.out.println("Invalid option.");
-		}
+					case 1:
+							test.callFCFS();
+							break;
+					case 2:
+							test.callSJF();
+							break;
+					case 3:
+							test.callRR();
+							break;
+					default:
+							System.out.println("Invalid option.");
+			}
 	}
 
 }
