@@ -1,4 +1,6 @@
-package presjf;
+package fcfs;
+
+import presjf.*;
 
 public class Process {
 	public String pid;	 // Process ID

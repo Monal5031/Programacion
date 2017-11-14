@@ -3,12 +3,14 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package RoundRobin;
+package roundrobin;
 
 /**
  *
  * @author fsociety
  */
+import java.io.BufferedWriter;
+import java.io.FileWriter;
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.Queue;
@@ -18,7 +20,7 @@ public class RoundRobin {
 	static float idle=0;
 	static ArrayList<Process> final_list = new ArrayList<>();
 
-	public static void findIdleTime(ArrayList<Process> lc, int quantum) {
+	public void findIdleTime(ArrayList<Process> lc, int quantum) {
 		float curTime=0;
 		for(int i=0;i<lc.size();i++){
 			curTime+= Math.min(lc.get(i).totalExecutionTime , quantum);
@@ -26,7 +28,7 @@ public class RoundRobin {
 	}
 	}
 
-	public static void findWaitingTime(ArrayList<Process> lc, int quantum) {
+	public void findWaitingTime(ArrayList<Process> lc, int quantum) {
 		float t =0; // Current time
 		Process p;
 		int len = lc.size();
@@ -105,7 +107,7 @@ public class RoundRobin {
 	}
 
 	// Method to calculate turn around time
-	static void findTurnAroundTime(Queue<Process> gc) {
+	public void findTurnAroundTime(Queue<Process> gc) {
 		// calculating turnaround time by adding burst time and waiting time
 		Process p=null;
 
@@ -118,7 +120,7 @@ public class RoundRobin {
 }
 
 	// Method to calculate average time
-	static void findavgTime(ArrayList<Process> lc,int quantum) {
+	public void findavgTime(ArrayList<Process> lc,int quantum)throws Exception {
 
 		float total_wt = 0;
 		float total_tat = 0;
@@ -137,10 +139,21 @@ public class RoundRobin {
 			total_wt = total_wt + final_list.get(i).waitingTime;
 			total_tat = total_tat + final_list.get(i).tat;
 		}
+				double avgTurnAroundTime = (double)total_wt / (double)final_list.size();
+				double avgWaitTime = (double)total_tat / (double) final_list.size();
+				double standardDeviation = 0;
+				for (int i = 0; i < final_list.size(); i++) {
+					standardDeviation += Math.pow(Math.abs(final_list.get(i).tat - avgTurnAroundTime), 2);
+				}
 
-		System.out.println("Average waiting time = " +
-						  (float)total_wt / (float)final_list.size());
-		System.out.println("Average turn around time = " +
-						   (float)total_tat / (float)final_list.size());
+				FileWriter outFile = new FileWriter("/home/fsociety/Desktop/Programacion/output.txt");
+				BufferedWriter bWriter = new BufferedWriter(outFile);
+				bWriter.write(quantum+" ");
+				bWriter.write(avgWaitTime+" ");
+				bWriter.write(avgTurnAroundTime+"\n");
+		System.out.println("Average waiting time = " + avgTurnAroundTime);
+		System.out.println("Average turn around time = " + avgWaitTime);
+				System.out.println("Standard Deviation for average turn around time is: "+
+						Math.pow((standardDeviation/(double)final_list.size()),0.5));
 	}
 }

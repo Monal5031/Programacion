@@ -3,12 +3,11 @@ package presjf;
 public class PreSJF {
 
 	// Method to find the waiting time for all processes
-	void getWaitingTime(Process[] process, int n, double[] waitingTime) {
+	public void getWaitingTime(Process[] process, int n, double[] waitingTime) {
 		int[] remainingTime = new int[n];
 		int complete = 0, t = 0, min = Integer.MAX_VALUE;
 		int shortest = 0, finishTime;
 		boolean check = false;
-
 		// Copy the burst time into remainingTime array
 		for (int i = 0; i < n; i++) {
 			remainingTime[i] = process[i].burstTime;
@@ -57,14 +56,14 @@ public class PreSJF {
 	}
 
 	// Method to calculate turn around time
-	void getTurnAroundTime(Process process[], int n, double[] waitingTime, double[] turnAroundTime) {
+	public void getTurnAroundTime(Process process[], int n, double[] waitingTime, double[] turnAroundTime) {
 		for (int i = 0; i < n; i++) {
 			turnAroundTime[i] = process[i].burstTime + waitingTime[i];
 		}
 	}
 
 	// Method to calculate average time
-	void getAvgTime(Process[] process, int n) {
+	public void getAvgTime(Process[] process, int n) {
 		double[] waitingTime = new double[n];
 		double[] turnAroundTime = new double[n];
 		double totalWT = 0, totalTT = 0;

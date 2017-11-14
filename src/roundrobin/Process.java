@@ -3,23 +3,23 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package RoundRobin;
+package roundrobin;
 
 /**
  *
  * @author fsociety
  */
-class Process{
-	String name;
-	int arrivalTime;
-	float totalExecutionTime;
-	float waitingTime;
-	int priority;
-	float rem_bt;
-	float tat;
-	float relTime;
+public class Process{
+	public String name;
+	public int arrivalTime;
+	public float totalExecutionTime;
+	public float waitingTime;
+	public int priority;
+	public float rem_bt;
+	public float tat;
+	public float relTime;
 
-	Process(String name, int arrivalTime,float burstTime,
+	public Process(String name, int arrivalTime,float burstTime,
 			float waitingTime,int priortiy,float rbt){
 		this.tat = 0;
 		this.relTime = 0;
