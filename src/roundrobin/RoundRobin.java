@@ -92,7 +92,6 @@ public class RoundRobin {
 					final_list.add(p);
 				}
 			}
-			t += 0;
 		}
 		// If all Processes are done
 		if (done == true && final_list.size() == len) {
@@ -135,16 +134,16 @@ public class RoundRobin {
 			total_wt = total_wt + final_list.get(i).waitingTime;
 			total_tat = total_tat + final_list.get(i).tat;
 		}
-		double avgTurnAroundTime = (double)total_wt / (double)final_list.size();
-		double avgWaitTime = (double)total_tat / (double) final_list.size();
+		double avgTurnAroundTime = (double)total_tat / (double)final_list.size();
+		double avgWaitTime = (double) total_wt / (double) final_list.size();
 				double standardDeviation = 0;
 		for (int i = 0; i < final_list.size(); i++) {
 					standardDeviation += Math.pow(Math.abs(final_list.get(i).tat - avgTurnAroundTime), 2);
 		}
 				this.waitTime = avgWaitTime;
 				this.turnAroundTime = avgTurnAroundTime;
-		System.out.println("Average waiting time = " + avgTurnAroundTime);
-		System.out.println("Average turn around time = " + avgWaitTime);
+		System.out.println("Average waiting time = " + avgWaitTime);
+		System.out.println("Average turn around time = " +avgTurnAroundTime);
 				System.out.println("Standard Deviation for average turn around time is: "+
 									Math.pow((standardDeviation/(double)final_list.size()),0.5));
 		}
